@@ -12,5 +12,4 @@ A simple React app to manage and display a list of healthcare services.
 - Add, update, and delete services.
 - Form validation to ensure all fields are required.
 
-## Deployment
-This app is deployed at [Your Deployment Link Here].
+
