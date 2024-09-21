@@ -1,25 +1,38 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import ServiceList from './components/ServiceList';
+import ServiceForm from './components/ServiceForm';
 import './App.css';
 
-function App() {
+const App = () => {
+  const [services, setServices] = useState([]);
+  const [editingIndex, setEditingIndex] = useState(null);
+
+  const addService = (service) => {
+    if (editingIndex !== null) {
+      const updatedServices = [...services];
+      updatedServices[editingIndex] = service;
+      setServices(updatedServices);
+      setEditingIndex(null);
+    } else {
+      setServices([...services, service]);
+    }
+  };
+
+  const editService = (index) => {
+    setEditingIndex(index);
+  };
+
+  const deleteService = (index) => {
+    setServices(services.filter((_, i) => i !== index));
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Healthcare Services</h1>
+      <ServiceForm onSubmit={addService} editingService={services[editingIndex]} />
+      <ServiceList services={services} onEdit={editService} onDelete={deleteService} />
     </div>
   );
-}
+};
 
 export default App;
